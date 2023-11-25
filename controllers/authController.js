@@ -31,8 +31,8 @@ const authController = {
     try {
         const { username, password } = req.body;
         const user = await User.findOne({ username });
-        console.log(username);
-        console.log(user);
+        /* console.log(username);
+        console.log(user); */
         if (user && (await bcrypt.compare(password, user.password))) {
           const accessToken = generateAccessToken({ username });
           const refreshToken = jwt.sign({ username }, refreshTokenSecret ,{ expiresIn: '1d' });

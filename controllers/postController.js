@@ -41,7 +41,29 @@ async function getAllPosts(req, res) {
   }
 }
 
+
+async function deletePost(req, res) {
+  const postId = req.params.postId;
+
+  try {
+    // Delete the post by ID
+    const result = await Post.deleteOne({ _id: postId });
+
+    if (result.deletedCount === 0) {
+      return res.status(404).json({ message: 'Post not found' });
+    }
+
+    res.json({ message: 'Post deleted successfully' });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+}
+
+
+// Export the deletePost function
 module.exports = {
   createPost,
   getAllPosts,
+  deletePost,
 };
+

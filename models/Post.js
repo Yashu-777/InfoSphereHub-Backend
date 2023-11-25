@@ -12,11 +12,14 @@ const postSchema = new mongoose.Schema({
   author: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
-    //type:String,
     required: true,
   },
+  timestamp: {
+    type: Date,
+    default: Date.now,
+  },
 }, {
-  collection: 'Posts', // Specify the collection name
+  collection: 'Posts',
 });
 
 const Post = mongoose.model('Post', postSchema);
