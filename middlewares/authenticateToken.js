@@ -14,7 +14,7 @@ const authenticateToken = (req, res, next) => {
       console.log('Token verification error:', err);
       return res.sendStatus(403);
     }
-    console.log('Token verified successfully');
+    //console.log('Token verified successfully');
     req.user = decoded;
     next();
   });

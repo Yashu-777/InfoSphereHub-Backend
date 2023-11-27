@@ -1,4 +1,5 @@
 const Task = require('../models/Task');
+const User = require('../models/User');
 
 // Controller for creating a new task
 async function createTask(req, res) {
@@ -76,9 +77,23 @@ async function deleteTask(req, res) {
   }
 }
 
+async function pendingTasks(req,res) {
+  try{
+    if(!req.user.username) {
+      return res.status(404).json({message:'User not found'});
+    }
+
+    const taskCount = await Task.countDocuments({username:req.user.username,status:false});
+    res.json({pendingTasks: taskCount});
+  } catch (error) {
+    res.status(500).json({message: error.message});
+  }
+}
+
 module.exports = {
   createTask,
   getAllTasks,
   updateTaskStatus,
   deleteTask,
+  pendingTasks,
 };

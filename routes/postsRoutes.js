@@ -15,5 +15,6 @@ router.get('/allpost', authenticateToken, postController.getAllPosts);
 // Delete a post by ID
 router.delete('/deletepost/:postId', authenticateToken, postController.deletePost);
 
+router.get('/blogcount',authenticateToken,postController.getBlogCount);
 
 module.exports = router;

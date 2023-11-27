@@ -59,11 +59,26 @@ async function deletePost(req, res) {
   }
 }
 
+async function getBlogCount(req, res) {
+  try {
+    const user = await User.findOne({ username: req.user.username });
+
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    const blogCount = await Post.countDocuments({ author: user._id });
+    res.json({ count: blogCount });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+}
 
 // Export the deletePost function
 module.exports = {
   createPost,
   getAllPosts,
   deletePost,
+  getBlogCount
 };
 
