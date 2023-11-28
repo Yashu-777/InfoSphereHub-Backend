@@ -9,15 +9,12 @@ async function createPost(req, res) {
   console.log(content);
   console.log(userTemp); */
   try {
-    // Find the user by username
-    
     const user = await User.findOne({ username:userTemp });
 
     if (!user) {
       return res.status(404).json({ message: 'User not found' });
     }
 
-    // Create a new post associated with the user
     const post = new Post({
       title,
       content,

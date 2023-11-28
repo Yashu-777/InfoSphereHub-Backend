@@ -28,7 +28,6 @@ const authController = {
   },
   
   login: async (req, res) => {
-    // ... (your existing login logic)
     try {
         const { username, password } = req.body;
         const user = await User.findOne({ username });
@@ -48,7 +47,6 @@ const authController = {
   },
 
   refreshToken: (req, res) => {
-    // ... (your existing refresh token logic)
     const refreshToken = req.body.token;
   if (!refreshToken) return res.sendStatus(401);
 
@@ -117,7 +115,7 @@ deleteUser: async (req, res) => {
       return res.status(404).json({ message: 'User not found' });
     }
 
-    // Delete associated blog posts
+    // Delete associated blog posts,tasks
     await Post.deleteMany({ author: user._id });
     await Task.deleteMany({username:username});
     // Delete the user
@@ -131,7 +129,6 @@ deleteUser: async (req, res) => {
 },
 
   protectedRoute: (req, res) => {
-    // ... (your existing protected route logic)
     res.json({ message: 'You have access to the protected route!', user: req.user });
   },
 };
